@@ -16,22 +16,23 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 
             if($res['tipo'] == 1){
 
+              $_SESSION["nombre"] = $res['nombre'];
               $_SESSION["usuario"] = $res['usuario'];
               $_SESSION["password"] = $res['password'];
+              $_SESSION["tipo"] = "personal";
               $_SESSION["validarSesion"] = "ok";
 
-              echo "<script>alert('Has ingresado como Personal')</script>";
-              header('Location: indexpersonal.php');
+              header('Location: index.php');
 
             }else if($res['tipo'] == 2){
 
+              $_SESSION["nombre"] = $res['nombre'];
               $_SESSION["usuario"] = $res['usuario'];
               $_SESSION["password"] = $res['password'];
+              $_SESSION["tipo"] = "admin";
               $_SESSION["validarSesion"] = "ok";
 
-              
-              echo "<script>alert('Has ingresado como Administrador')</script>";
-              header('Location: indexadmin.php');
+              header('Location: index.php');
               
               
             }
@@ -67,7 +68,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition login-page">
+<div class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
     <a href=""><b>Inicio de Sesión</b></a>
@@ -130,5 +131,5 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 
-</body>
+</div>
 </html>
