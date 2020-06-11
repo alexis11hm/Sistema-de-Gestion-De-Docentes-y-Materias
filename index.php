@@ -46,9 +46,9 @@ session_start();
 		if($_SESSION['tipo'] == "admin"){
 
 
-			include "modulos/navegadoradmin.php";
+			include "vistas/modulos/navegadoradmin.php";
 
-			include "modulos/lateraladmin.php";
+			include "vistas/modulos/lateraladmin.php";
 
 			echo '<!-- Content Wrapper. Contains page content -->
 					  <div class="content-wrapper">
@@ -58,13 +58,13 @@ session_start();
 					       
 
 			/*AQUI SE AGREGARA EL CONTENIDO*/
-			include "modulos/contenidoadmin.php";
+			include "vistas/modulos/contenidoadmin.php";
 
 			echo ' </div>
 					    </section>
 					  </div>';
 
-			include "modulos/pie.php";
+			include "vistas/modulos/pie.php";
 
 			echo '<!-- Control Sidebar -->
 				  <aside class="control-sidebar control-sidebar-dark">
@@ -76,9 +76,9 @@ session_start();
 
 
 
-			include "modulos/navegadorpersonal.php";
+			include "vistas/modulos/navegadorpersonal.php";
 
-			include "modulos/lateralpersonal.php";
+			include "vistas/modulos/lateralpersonal.php";
 
 			echo '<!-- Content Wrapper. Contains page content -->
 					  <div class="content-wrapper">
@@ -88,13 +88,13 @@ session_start();
 					       
 
 			/*AQUI SE AGREGARA EL CONTENIDO*/
-			include "modulos/contenidopersonal.php";
+			include "vistas/modulos/contenidopersonal.php";
 
 			echo ' </div>
 					    </section>
 					  </div>';
 
-			include "modulos/pie.php";
+			include "vistas/modulos/pie.php";
 
 			echo '<!-- Control Sidebar -->
 				  <aside class="control-sidebar control-sidebar-dark">
@@ -108,7 +108,7 @@ session_start();
 		
 	}else{
 
-		include "login.php";
+		include "vistas/login.php";
 
 
 
@@ -137,9 +137,9 @@ session_start();
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
 <script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
+<!-- JQVMap 
 <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>-->
 <!-- jQuery Knob Chart -->
 <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
