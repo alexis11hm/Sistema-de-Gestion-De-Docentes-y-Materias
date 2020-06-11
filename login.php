@@ -1,5 +1,5 @@
 <?php
-require_once('conexion.php');
+require_once('php/conexion.php');
 
 if(isset($_POST['usuario']) && isset($_POST['password'])){
     $conexion = new Conexion;
@@ -64,7 +64,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="plugins/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -77,7 +77,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
   <div class="card">
     <div class="card-body login-card-body">
       <br>
-      <center><img src="dist/img/login.png" alt="no encontrado" width="120px" height="120px"></center>
+      <center><img src="plugins/dist/img/login.png" alt="no encontrado" width="120px" height="120px"></center>
       <br>
       <p class="login-box-msg">Ingresa tus datos para iniciar sesión</p>
 
@@ -129,7 +129,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="plugins/dist/js/adminlte.min.js"></script>
 <script src="plugins/sweetalert.js"></script>
 </div>
 </html>
