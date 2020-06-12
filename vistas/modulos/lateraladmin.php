@@ -24,7 +24,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <a href="php/sesionPersonal.php" class="nav-link active">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Personal
@@ -48,6 +48,16 @@
               <i class="nav-icon fas fa-id-badge"></i>
               <p>
                 Puestos
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Materias
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>

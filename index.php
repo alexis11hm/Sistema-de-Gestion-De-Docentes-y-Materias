@@ -58,7 +58,19 @@ session_start();
 					       
 
 			/*AQUI SE AGREGARA EL CONTENIDO*/
-			include "vistas/modulos/contenidoadmin.php";
+			if(isset($_SESSION["vistapersonal"])){
+				include "vistas/modulos/personal/personaladmin.php";
+			}else if(isset($_SESSION["vistapersonalver"])){
+				include "vistas/modulos/personal/visualizarpersonaladmin.php";
+			}else if(isset($_SESSION["vistapersonaledit"])){
+				include "vistas/modulos/personal/editarpersonaladmin.php";
+			}elseif(isset($_SESSION["vistapersonalpuesto"])){
+				include 'vistas/modulos/personal/puestopersonaladmin.php';
+			}else if(isset($_SESSION["vistapersonalagregarpuesto"])){
+				include 'vistas/modulos/personal/agregarpersonalpuestoadmin.php';
+			}else{
+				include "vistas/modulos/contenidoadmin.php";
+			}
 
 			echo ' </div>
 					    </section>

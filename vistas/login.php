@@ -2,11 +2,18 @@
 require_once('php/conexion.php');
 
 if(isset($_POST['usuario']) && isset($_POST['password'])){
+
+    if(isset($_POST['recordarme'])){
+      setcookie("usuario", $_POST['usuario'], time()+3600);
+      setcookie("password", $_POST['password'], time()+3600);
+    }
+
+
     $conexion = new Conexion;
     $con = $conexion->conexion();
 
     $consulta = "select * from personal 
-                where usuario = '".$_POST['usuario']."' 
+                where correo = '".$_POST['usuario']."' 
                 and password = '".$_POST['password']."'";
 
     $resultado = $con->query($consulta);
@@ -17,7 +24,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
             if($res['tipo'] == 1){
 
               $_SESSION["nombre"] = $res['nombre'];
-              $_SESSION["usuario"] = $res['usuario'];
+              $_SESSION["usuario"] = $res['correo'];
               $_SESSION["password"] = $res['password'];
               $_SESSION["tipo"] = "personal";
               $_SESSION["validarSesion"] = "ok";
@@ -27,7 +34,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
             }else if($res['tipo'] == 2){
 
               $_SESSION["nombre"] = $res['nombre'];
-              $_SESSION["usuario"] = $res['usuario'];
+              $_SESSION["usuario"] = $res['correo'];
               $_SESSION["password"] = $res['password'];
               $_SESSION["tipo"] = "admin";
               $_SESSION["validarSesion"] = "ok";
@@ -83,7 +90,8 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 
       <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="usuario" placeholder="Nombre de Usuario">
+          <input type="email" class="form-control" name="usuario" placeholder="Nombre de Usuario"
+          value="<?php if(isset($_COOKIE['usuario'])){ echo $_COOKIE['usuario']; }else{ echo '';} ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -91,7 +99,8 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Contraseña">
+          <input type="password" class="form-control" name="password" placeholder="Contraseña"
+           value="<?php if(isset($_COOKIE['password'])){ echo $_COOKIE['password']; }else{ echo '';} ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -101,7 +110,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
         <div class="row">
           <div class="col-7">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input type="checkbox" id="remember" name="recordarme">
               <label for="remember">
                 Recordarme
               </label>
