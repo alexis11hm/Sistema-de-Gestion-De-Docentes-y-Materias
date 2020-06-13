@@ -59,7 +59,6 @@
 		          </div>
 		        </div>
 				
-				<!--CAMBIAR EL SEXO POR RADIO BUTTON-->
 		        <div class="input-group mb-3">
 		        	<input type="radio" class="form-control"  value="Hombre" name="sexoa" checked="">Hombre
 		        	<input type="radio" class="form-control"  value="Mujer" name="sexoa" >Mujer

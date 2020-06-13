@@ -37,6 +37,7 @@ if(isset($_POST['tituloa']) && isset($_POST['nombrea']) && isset($_POST['paterno
 		".$tipo.")";
 
 	$resultado = $con->query($consulta);
+	$con->close();
 	if(!$resultado){
 		echo '<script>alert("No se ha podido registrar!")</script>';
 	}else{
@@ -67,6 +68,7 @@ if(isset($_POST['idd'])){
 			unlink($foto);
 			$consulta = "DELETE FROM personal WHERE id = ".$_POST['idd'];
 			$resultado = $con->query($consulta);
+			$con->close();
 			if(!$resultado){
 				echo '<script>alert("No se ha podido eliminar!")</script>';
 			}else{
@@ -108,13 +110,16 @@ if(isset($_POST['tituloe']) && isset($_POST['nombree']) && isset($_POST['paterno
 				materno = '".$_POST['maternoe']."',
 				sexo = '".$_POST['sexoe']."',
 				rfc = '".$_POST['rfce']."',
-				curp = '".$_POST['curpe']."',
-				foto = '".$destino."',
-				correo = '".$_POST['correoe']."',
+				curp = '".$_POST['curpe']."',";
+				if($foto != ""){
+					$consulta .= "foto = '".$destino."',";
+				}
+				$consulta .= "correo = '".$_POST['correoe']."',
 				password = '".$_POST['passworde']."',
 				tipo = ".$tipo." WHERE id = ".$_POST['ide'];
 
 	$resultado = $con->query($consulta);
+	$con->close();
 	if(!$resultado){
 		echo '<script>alert("No se ha actualizar el personal!")</script>';
 	}else{

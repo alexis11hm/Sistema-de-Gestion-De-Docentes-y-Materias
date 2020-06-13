@@ -25,10 +25,11 @@ DROP TABLE IF EXISTS `calificacion`;
 CREATE TABLE `calificacion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `unidad` int(1) NOT NULL,
-  `documento` varchar(30) NOT NULL,
+  `documento` varchar(150) DEFAULT NULL,
   `docentemateria` int(11) NOT NULL,
+  `fecha` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +38,7 @@ CREATE TABLE `calificacion` (
 
 LOCK TABLES `calificacion` WRITE;
 /*!40000 ALTER TABLE `calificacion` DISABLE KEYS */;
+INSERT INTO `calificacion` VALUES (28,1,'archivos/calificaciones_poo_2020.csv',3,'2020-06-12'),(29,3,'archivos/calificaciones.csv',1,'2020-06-12'),(30,6,'archivos/calificaciones_poo_2020 - copia.csv',2,'2020-06-12');
 /*!40000 ALTER TABLE `calificacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +79,7 @@ CREATE TABLE `docentemateria` (
   `materia` int(11) NOT NULL,
   `puestodepartamento` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,6 +88,7 @@ CREATE TABLE `docentemateria` (
 
 LOCK TABLES `docentemateria` WRITE;
 /*!40000 ALTER TABLE `docentemateria` DISABLE KEYS */;
+INSERT INTO `docentemateria` VALUES (1,2,1),(2,3,1),(3,5,7);
 /*!40000 ALTER TABLE `docentemateria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +103,7 @@ CREATE TABLE `materia` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,6 +112,7 @@ CREATE TABLE `materia` (
 
 LOCK TABLES `materia` WRITE;
 /*!40000 ALTER TABLE `materia` DISABLE KEYS */;
+INSERT INTO `materia` VALUES (1,'Programacion Orientada Objetos'),(2,'Sistemas Operativos'),(3,'Redes de Computadoras'),(4,'Calculo Difrencial'),(5,'Calculo Integral');
 /*!40000 ALTER TABLE `materia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +137,7 @@ CREATE TABLE `personal` (
   `password` varchar(30) NOT NULL,
   `tipo` int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +146,7 @@ CREATE TABLE `personal` (
 
 LOCK TABLES `personal` WRITE;
 /*!40000 ALTER TABLE `personal` DISABLE KEYS */;
-INSERT INTO `personal` VALUES (1,'Ingeniero en Sistemas Computacionales','Alexis','Hernandez','Mondragon','Hombre','HEMA981206YU6','HETA981106HMDRL07','fotos/foto.jpg','alexis11hm@gmail.com','12345678',2),(2,'Ingeniera En Sistemas Computacionales','Dulce Caroll','Peñaloza ','Tello','Hombre','PETC131292TR3','PETEDC123456HMNRJL','fotos/foto4.png','caroll@gmail.com','12345678',1),(3,'Ingeniero En Sistemas Computacionales','Erik Salvdaor','Padilla','Gonzalez','Hombre','PAGS123456HM2','PAGS123456HMNRLP07','fotos/foto3.jpg','erikgonzna@gmail.com','12345678',2);
+INSERT INTO `personal` VALUES (1,'Ingeniero en Sistemas Computacionales','Alexis','Hernandez','Mondragon','Hombre','HEMA981206YU6','HETA981106HMDRL07','fotos/foto.jpg','alexis11hm@gmail.com','12345678',2),(2,'Ingeniera En Sistemas Computacionales','Dulce Caroll','Peñaloza ','Tello','Mujer','PETC131292TR3','PETEDC123456HMNRJL','fotos/foto4.png','caroll@gmail.com','12345678',2),(3,'Ingeniero En Sistemas Computacionales','Erik Salvdaor','Padilla','Gonzalez','Hombre','PAGS123456HM2','PAGS123456HMNRLP07','fotos/foto3.jpg','erikgonzna@gmail.com','12345678',2),(8,'Ingeniero Electromecanico','Guillermo','Peñaloza ','Camacho','Hombre','PETEDC123456','PETEDC123456HMNRJL','fotos/hombre-joven-inconformista-brazos-cruzados_1368-25112.jpg','gui@gmail.com','12345678',1);
 /*!40000 ALTER TABLE `personal` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +187,7 @@ CREATE TABLE `puestodepartamento` (
   `departamento` int(11) NOT NULL,
   `puesto` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,7 +196,7 @@ CREATE TABLE `puestodepartamento` (
 
 LOCK TABLES `puestodepartamento` WRITE;
 /*!40000 ALTER TABLE `puestodepartamento` DISABLE KEYS */;
-INSERT INTO `puestodepartamento` VALUES (1,1,2,1),(2,2,2,1),(3,2,2,4),(4,3,2,2),(6,3,5,2);
+INSERT INTO `puestodepartamento` VALUES (1,1,2,1),(2,2,2,1),(3,2,2,4),(4,3,2,2),(6,3,5,2),(7,1,3,1),(8,3,2,1);
 /*!40000 ALTER TABLE `puestodepartamento` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -205,4 +209,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-11 22:12:14
+-- Dump completed on 2020-06-12 21:08:10

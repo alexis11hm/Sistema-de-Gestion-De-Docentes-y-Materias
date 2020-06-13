@@ -8,7 +8,7 @@ session_start();
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>sistema Personal ITZ</title>
+  <title>Sistema ITZ</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -100,7 +100,13 @@ session_start();
 					       
 
 			/*AQUI SE AGREGARA EL CONTENIDO*/
-			include "vistas/modulos/contenidopersonal.php";
+			if(isset($_SESSION["vistatabla"])){
+				include "vistas/modulos/calificacion/tablacalificacion.php";
+			}else if(isset($_SESSION['vistavisualizarcalificacion'])){
+				include "vistas/modulos/calificacion/visualizarcalificacion.php";
+			}else{
+				include "vistas/modulos/contenidopersonal.php";
+			}
 
 			echo ' </div>
 					    </section>

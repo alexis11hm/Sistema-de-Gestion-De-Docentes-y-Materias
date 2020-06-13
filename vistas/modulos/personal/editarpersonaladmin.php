@@ -61,7 +61,11 @@ $renglon = $resultado->fetch_array(MYSQLI_ASSOC);
 				
 				<label for="">Foto</label>
 		        <div class="input-group mb-3">
-		          <input type="file" class="form-control" placeholder="Foto" name="fotoe"required="" onkeyup="" maxlength="30"  value="<?php echo $renglon["foto"]; ?>">
+		          <input type="file" class="form-control" placeholder="Foto" name="fotoe" onkeyup="" maxlength="30"  value="<?php echo $renglon["foto"]; ?>">
+		        </div>
+
+		        <div class="input-group mb-3">
+		          <img src="<?php echo "php/".$renglon["foto"]; ?>" alt="foto" width="150px" height="180px">
 		        </div>
 				
 				<label for="">Correo Electronico</label>

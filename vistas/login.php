@@ -1,43 +1,65 @@
 <?php
 require_once('php/conexion.php');
 
-if(isset($_POST['usuario']) && isset($_POST['password'])){
+if(isset($_POST['usuario']) && isset($_POST['password']) && isset($_POST['tipoacceso'])){
 
-    if(isset($_POST['recordarme'])){
-      setcookie("usuario", $_POST['usuario'], time()+3600);
-      setcookie("password", $_POST['password'], time()+3600);
-    }
 
 
     $conexion = new Conexion;
     $con = $conexion->conexion();
 
-    $consulta = "select * from personal 
-                where correo = '".$_POST['usuario']."' 
-                and password = '".$_POST['password']."'";
+    $consulta = "select p.id as id,p.nombre as nombre, pu.nombre as puesto, p.correo as correo, p.password as password,p.tipo as tipo from puestodepartamento pd join personal p on p.id = pd.personal join puesto pu on pu.id = pd.puesto join departamento d on d.id = pd.departamento where p.correo = '".$_POST['usuario']."' and p.password = '".$_POST['password']."'";
 
     $resultado = $con->query($consulta);
     if($resultado){
         $res = $resultado->fetch_array(MYSQLI_ASSOC);
         if($res!= null){
 
-            if($res['tipo'] == 1){
 
+          $consultaaux = "select p.id as id,p.nombre as nombre, pu.nombre as puesto, p.correo as correo, p.password as password,p.tipo as tipo from puestodepartamento pd join personal p on p.id = pd.personal join puesto pu on pu.id = pd.puesto join departamento d on d.id = pd.departamento where p.correo = '".$_POST['usuario']."' and p.password = '".$_POST['password']."' and pu.nombre='Docente'";
+
+          $resultadoaux = $con->query($consultaaux);
+          $esDocente = 0;
+          if($resultadoaux){
+              $resaux = $resultadoaux->fetch_array(MYSQLI_ASSOC);
+              if($resaux!=null){
+                $esDocente = 1;
+              }
+          }
+
+            if((($res['tipo'] == 1) && ($_POST['tipoacceso'] == "personal")) ||
+
+              (($res['tipo'] == 2) &&  ($_POST['tipoacceso'] == "personal")  && $esDocente==1)){
+
+              $_SESSION["id"] = $res['id'];
               $_SESSION["nombre"] = $res['nombre'];
               $_SESSION["usuario"] = $res['correo'];
               $_SESSION["password"] = $res['password'];
               $_SESSION["tipo"] = "personal";
               $_SESSION["validarSesion"] = "ok";
 
+
+              if(isset($_POST['recordarme'])){
+                setcookie("usuario", $_POST['usuario'], time()+3600);
+                setcookie("password", $_POST['password'], time()+3600);
+              }
+
               header('Location: index.php');
 
-            }else if($res['tipo'] == 2){
+            }else if(($res['tipo'] == 2) && ($_POST['tipoacceso'] == "admin")){
 
+              $_SESSION["id"] = $res['id'];
               $_SESSION["nombre"] = $res['nombre'];
               $_SESSION["usuario"] = $res['correo'];
               $_SESSION["password"] = $res['password'];
               $_SESSION["tipo"] = "admin";
               $_SESSION["validarSesion"] = "ok";
+
+              
+              if(isset($_POST['recordarme'])){
+                setcookie("usuario", $_POST['usuario'], time()+3600);
+                setcookie("password", $_POST['password'], time()+3600);
+              }
 
               header('Location: index.php');
               
@@ -107,6 +129,11 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
             </div>
           </div>
         </div>
+        <div class="input-group mb-3" style="transform:scale(0.8);">
+              <input type="radio" class="form-control"  value="admin" name="tipoacceso" checked="">Admin
+              <input type="radio" class="form-control"  value="personal" name="tipoacceso" >Personal
+            
+        </div>
         <div class="row">
           <div class="col-7">
             <div class="icheck-primary">
@@ -116,6 +143,8 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
               </label>
             </div>
           </div>
+
+
           <!-- /.col -->
           <div class="col-5">
             <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i>    Ingresar</button>

@@ -42,7 +42,7 @@ $renglon = $resultado->fetch_array(MYSQLI_ASSOC);
                                     </h6>
                                 </p>
                                 <p><h6 class="card-text">
-                                    Tipo: <?php if($renglon["titulo"] == 2){ echo 'Administrador'; }else{ echo 'Personal';} ?>
+                                    Tipo: <?php if($renglon["tipo"] == 2){ echo 'Administrador'; }else{ echo 'Personal';} ?>
                                         
                                     </h6>
                                 </p>
