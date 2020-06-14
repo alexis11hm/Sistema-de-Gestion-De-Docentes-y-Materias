@@ -45,7 +45,6 @@ session_start();
 
 		if($_SESSION['tipo'] == "admin"){
 
-
 			include "vistas/modulos/navegadoradmin.php";
 
 			include "vistas/modulos/lateraladmin.php";
@@ -58,16 +57,28 @@ session_start();
 					       
 
 			/*AQUI SE AGREGARA EL CONTENIDO*/
-			if(isset($_SESSION["vistapersonal"])){
-				include "vistas/modulos/personal/personaladmin.php";
-			}else if(isset($_SESSION["vistapersonalver"])){
-				include "vistas/modulos/personal/visualizarpersonaladmin.php";
-			}else if(isset($_SESSION["vistapersonaledit"])){
-				include "vistas/modulos/personal/editarpersonaladmin.php";
-			}elseif(isset($_SESSION["vistapersonalpuesto"])){
-				include 'vistas/modulos/personal/puestopersonaladmin.php';
-			}else if(isset($_SESSION["vistapersonalagregarpuesto"])){
-				include 'vistas/modulos/personal/agregarpersonalpuestoadmin.php';
+			if(isset($_SESSION['contenido'])){
+				switch ($_SESSION['contenido']) {
+					case 'vistapersonal':
+						include 'vistas/modulos/personal/personaladmin.php';
+					break;
+					case 'vistapersonalver':
+						include 'vistas/modulos/personal/visualizarpersonaladmin.php';
+					break;
+					case 'vistapersonaledit':
+						include 'vistas/modulos/personal/editarpersonaladmin.php';
+					break;
+					case 'vistapersonalpuesto':
+						include 'vistas/modulos/personal/puestopersonaladmin.php';
+					break;
+					case 'vistapersonalagregarpuesto':
+						include 'vistas/modulos/personal/agregarpersonalpuestoadmin.php';
+					break;
+					case 'departamentosIndex':
+						include 'vistas/modulos/departamentos/departamentoIndex.php';
+					break;
+				}
+
 			}else{
 				include "vistas/modulos/contenidoadmin.php";
 			}

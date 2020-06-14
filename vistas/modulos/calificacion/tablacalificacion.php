@@ -29,7 +29,7 @@
 		$con = $conexion->conexion(); 
 		$consulta = "select c.id as id, m.nombre as materia, c.unidad as unidad, c.documento as documento, c.fecha as fecha from calificacion c join docentemateria dm on dm.id = c.docentemateria join materia m on m.id=dm.materia join puestodepartamento pd on dm.puestodepartamento=pd.id join personal p on p.id=pd.personal where p.id=".$_SESSION['id'];
 		$resultado = $con->query($consulta);
-		if(!$resultado) die ("Error al realizar la consulta");
+		if(!$resultado) die ("No existen materias registradas");
 
 		$renglones = $resultado->num_rows;
 		for($i = 0; $i<$renglones; $i++){
