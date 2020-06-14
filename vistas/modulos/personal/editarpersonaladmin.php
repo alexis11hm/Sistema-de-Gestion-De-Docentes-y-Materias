@@ -9,7 +9,7 @@ if(!$resultado) die ("Error al realizar la consulta");
 
 $renglon = $resultado->fetch_array(MYSQLI_ASSOC);
 
- ?>
+?>
 
 <div class="container">	
 <form method="POST" action="php/modelopersonal.php" enctype="multipart/form-data">

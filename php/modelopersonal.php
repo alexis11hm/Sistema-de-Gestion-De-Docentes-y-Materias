@@ -124,10 +124,7 @@ if(isset($_POST['tituloe']) && isset($_POST['nombree']) && isset($_POST['paterno
 		echo '<script>alert("No se ha actualizar el personal!")</script>';
 	}else{
 		echo '<script>alert("Se ha actualizado correctamenter!")</script>';
-		$_SESSION['vistapersonal'] = "ok";
-		if(isset($_SESSION['vistapersonaledit'])){
-			unset($_SESSION['vistapersonaledit']);
-		}
+		$_SESSION['contenido'] = "vistapersonal";
 		header("location: ../index.php");
 
 	}

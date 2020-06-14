@@ -19,6 +19,7 @@
 	      <th scope="col">Unidad</th>
 	      <th scope="col">Fecha</th>
 	      <th scope="col">Ver</th>
+	      <th scope="col">Editar</th>
 	      <th scope="col">Eliminar</th>
 	    </tr>
 	  </thead>
@@ -44,6 +45,12 @@
 			      	<form method="POST" action="php/SesionesCalificaciones/sesionVisualizar.php">
 						<input type="hidden" value="'.$renglon["documento"].'" name="ruta" />
 						<button type="submit" class="btn btn-info"><i class="fas fa-eye"></i></button>
+					</form>
+			      </td>
+			      <td>
+			      	<form method="POST" action="php/SesionesCalificaciones/sesionEditar.php">
+						<input type="hidden" value="'.$renglon["id"].'" name="idedit" />
+						<button type="submit" class="btn btn-warning"><i class="fas fa-edit"></i></button>
 					</form>
 			      </td>
 			      <td>

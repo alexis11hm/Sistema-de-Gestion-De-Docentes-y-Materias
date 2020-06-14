@@ -6,8 +6,11 @@ if(isset($_SESSION["contenido"])){
 	unset($_SESSION["contenido"]);
 }
 
+$_SESSION["contenido"] = "vistaeditarcalificacion";
 
-$_SESSION["contenido"] = "vistatabla";
+if(isset($_POST['idedit'])){
+	$_SESSION['idedit'] = $_POST['idedit'];
+}
 
 header('Location: ../../index.php');
 

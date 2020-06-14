@@ -2,11 +2,11 @@
 
 session_start();
 
-if(isset($_SESSION["vistatabla"])){
-	unset($_SESSION["vistatabla"]);
+if(isset($_SESSION["contenido"])){
+	unset($_SESSION["contenido"]);
 }
 
-$_SESSION["vistavisualizarcalificacion"] = "ok";
+$_SESSION["contenido"] = "vistavisualizarcalificacion";
 
 if(isset($_POST['ruta'])){
 	$_SESSION['rutavisualizarcalificacion'] = $_POST['ruta'];

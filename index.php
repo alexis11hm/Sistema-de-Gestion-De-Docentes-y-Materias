@@ -111,10 +111,19 @@ session_start();
 					       
 
 			/*AQUI SE AGREGARA EL CONTENIDO*/
-			if(isset($_SESSION["vistatabla"])){
-				include "vistas/modulos/calificacion/tablacalificacion.php";
-			}else if(isset($_SESSION['vistavisualizarcalificacion'])){
-				include "vistas/modulos/calificacion/visualizarcalificacion.php";
+			if(isset($_SESSION['contenido'])){
+				switch ($_SESSION['contenido']) {
+					case 'vistatabla':
+						include "vistas/modulos/calificacion/tablacalificacion.php";
+					break;
+					case 'vistaeditarcalificacion':
+						include "vistas/modulos/calificacion/editarcalificacion.php";
+					break;
+					case 'vistavisualizarcalificacion':
+						include "vistas/modulos/calificacion/visualizarcalificacion.php";
+					break;
+				}
+
 			}else{
 				include "vistas/modulos/contenidopersonal.php";
 			}
