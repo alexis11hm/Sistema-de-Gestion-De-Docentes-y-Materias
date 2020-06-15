@@ -1,8 +1,13 @@
 <?php
 session_start();
 require_once('conexion.php');
+require_once 'mensaje.php';
 $conexion = new Conexion;
 $con = $conexion->conexion();
+
+Mensaje::enlazar();
+
+
 
 //AGREGAR CALIFICACION
 if(isset($_POST['docentemateriaa']) && isset($_FILES['documentoa']) && isset($_POST['unidada'])){
@@ -19,7 +24,7 @@ if(isset($_POST['docentemateriaa']) && isset($_FILES['documentoa']) && isset($_P
 	$consulta = "select * from calificacion where documento = '".$destino."' and docentemateria = ".$_POST['docentemateriaa']." and unidad =".$_POST['unidada'];
 	$resultado = $con->query($consulta);
 	if($resultado){
-		if($renglon == null){
+		if(null == null){
 			$consulta = "INSERT INTO calificacion VALUES(null,
 			'".$_POST['unidada']."',
 			'".$destino."',
@@ -28,19 +33,19 @@ if(isset($_POST['docentemateriaa']) && isset($_FILES['documentoa']) && isset($_P
 			$resultado = $con->query($consulta);
 			$con->close();
 			if(!$resultado){
-				echo '<script>alert("No se ha podido registrar!")</script>';
+				Mensaje::mostrarMensaje("Registro de calificaciones", "¡No se ha podido registrar!","success");
 			}else{
 				move_uploaded_file($ruta, $destino);
-				echo '<script>alert("Se ha registrado correctamenter!")</script>';
-				header("location: ../index.php");
+				Mensaje::mostrarMensaje("Registro de calificaciones", "¡Se han registrado las calificaciones correctamente!","success");
+		    	header( "refresh:1.5; url=../index.php" );
 			}
 		}else{
-			echo '<script>alert("Ya existe un registro igual!")</script>';
-				header("location: ../index.php");
+			Mensaje::mostrarMensaje("Registro de calificaciones", "¡Ya existe un registro igual!","error");
+		    header( "refresh:1.5; url=../index.php" );
 		}
 	}else{
-		echo '<script>alert("Error!")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Registro de calificaciones", "","error");
+		header( "refresh:1.5; url=../index.php" );
 	}
 }
 
@@ -60,11 +65,11 @@ if(isset($_POST['ideliminarcalificacion'])){
 			$resultado = $con->query($consulta);
 			$con->close();
 			if(!$resultado){
-				echo '<script>alert("No se ha podido eliminar!")</script>';
-				header("location: ../index.php");
+				Mensaje::mostrarMensaje("Eliminacion de calificaciones", "¡No se ha podido eliminar!","error");
+		    	header( "refresh:1.5; url=../index.php" );
 			}else{
-				echo '<script>alert("Se ha eliminado correctamente!")</script>';
-					header("location: ../index.php");
+				Mensaje::mostrarMensaje("Eliminacion de calificaciones", "¡Se ha eliminado correctamente!","success");
+		    	header( "refresh:1.5; url=../index.php" );
 			}
 			
 		}
@@ -101,12 +106,12 @@ if(isset($_POST['docentemateriae']) && isset($_FILES['documentoe']) && isset($_P
 	$resultado = $con->query($consulta);
 	$con->close();
 	if(!$resultado){
-		echo '<script>alert("No se actualizo la calificacion!")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizacion de calificaciones", "¡No se ha podido actualizar!","error");
+		header( "refresh:1.5; url=../index.php" );
 	}else{
-		echo '<script>alert("Se ha actualizado correctamente!")</script>';
 		$_SESSION['contenido'] = "vistatabla";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizacion de calificaciones", "¡Se ha actualizado correctamente!","success");
+		header( "refresh:1.5; url=../index.php" );
 
 	}
 }

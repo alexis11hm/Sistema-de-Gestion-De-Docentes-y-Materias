@@ -1,5 +1,6 @@
 <?php
 require_once('php/conexion.php');
+include 'php/mensaje.php';
 
 if(isset($_POST['usuario']) && isset($_POST['password']) && isset($_POST['tipoacceso'])){
 
@@ -7,6 +8,7 @@ if(isset($_POST['usuario']) && isset($_POST['password']) && isset($_POST['tipoac
 
     $conexion = new Conexion;
     $con = $conexion->conexion();
+
 
     $consulta = "select p.id as id,p.nombre as nombre, pu.nombre as puesto, p.correo as correo, p.password as password,p.tipo as tipo from puestodepartamento pd join personal p on p.id = pd.personal join puesto pu on pu.id = pd.puesto join departamento d on d.id = pd.departamento where p.correo = '".$_POST['usuario']."' and p.password = '".$_POST['password']."'";
 
@@ -44,7 +46,9 @@ if(isset($_POST['usuario']) && isset($_POST['password']) && isset($_POST['tipoac
                 setcookie("password", $_POST['password'], time()+3600);
               }
 
-              header('Location: index.php');
+              Mensaje::mostrarMensaje("Inicio de Sesión", "¡Has ingresado Correctamente como Personal!","success");
+              
+              header( "refresh:1.5; url=index.php" );
 
             }else if(($res['tipo'] == 2) && ($_POST['tipoacceso'] == "admin")){
 
@@ -61,15 +65,17 @@ if(isset($_POST['usuario']) && isset($_POST['password']) && isset($_POST['tipoac
                 setcookie("password", $_POST['password'], time()+3600);
               }
 
-              header('Location: index.php');
+              Mensaje::mostrarMensaje("Inicio de Sesión", "¡Has ingresado Correctamente como Administrador!","success");
+              
+              header( "refresh:1.5; url=index.php" );
               
               
             }
         }else{
-            echo "<script>alert('Usuario o contraseña incorrecta')</script>";
+            Mensaje::mostrarMensaje("Inicio de Sesión", "¡Usuario o Contraseña Incorrecto!","error");
         }
     }else{
-      echo "<script>alert('Error al realiazar la consulta')</script>";
+      echo "<script>alert('Error al realizar la consulta')</script>";
     }
 }
 

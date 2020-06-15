@@ -1,9 +1,11 @@
 <?php
 session_start();
-require 'conexion.php';
+require_once('conexion.php');
+include 'mensaje.php';
 $conexion = new Conexion;
 $con = $conexion->conexion();
 
+Mensaje::enlazar();
 
 
 //INSERCION
@@ -17,19 +19,17 @@ if(isset($_POST['nombre']) && isset($_POST['abreviatura'])){
 
 	$con->close();
 	if(!$resultado){
-		echo '<script>alert("¡No se ha podido registrar!")</script>';
+		Mensaje::mostrarMensaje("Registro Departamento", "¡No se ha podio registrar!","error");
 	}else{
-		echo '<script>alert("Se ha registrado correctamente!")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Registro Departamento", "¡Se ha registrado correctamente!","success");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
 	}else{
-		echo "<script>alert('repetido')</script>";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Registro Departamento", "¡Este departamento ya existe!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
-}else{
-	echo "No creada";
 }
 
 
@@ -40,14 +40,13 @@ if(isset($_POST['idd']) && estaVacio($_POST['idd'])){
 	$resultado = $con->query($consulta);
 	$con->close();
 	if(!$resultado){
-		echo '<script>alert("No se ha podido eliminar!")</script>';
+		Mensaje::mostrarMensaje("Eliminar Departamento", "¡No se ha podido eliminar!","error");
 	}else{
-		echo '<script>alert("Se ha eliminado correctamenter!")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Eliminar Departamento", "¡Se ha eliminado correctamente!","success");
+        header( "refresh:1.5; url=../index.php" );
 	}
 }else{
-	echo '<script>alert("¡Este departamento no se puede eliminar! Tiene personal asignado")</script>';
-	header("location: ../index.php");
+        header( "refresh:0; url=../index.php" );
 }
 
 //ACTUALIZACION
@@ -64,17 +63,17 @@ if(isset($_POST['nombree']) && isset($_POST['abreviaturae']) && isset($_POST['id
 	$resultado = $con->query($consulta);
 	$con->close();
 	if(!$resultado){
-		echo '<script>alert("No se ha actualizado")</script>';
+		Mensaje::mostrarMensaje("Actualizar Departamento", "¡No se ha actualizado!","error");
 	}else{
-		echo '<script>alert("Actualizado")</script>';
 		$_SESSION['contenido'] = "departamentosIndex";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizar Departamento", "¡Se ha actualizado correctamente!","success");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
 	}else{
-		echo '<script>alert("repetido")</script>';
 		$_SESSION['contenido'] = "departamentosIndex";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizar Departamento", "¡Este departamento ya existe!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
 }

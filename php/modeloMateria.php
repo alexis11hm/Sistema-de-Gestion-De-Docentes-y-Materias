@@ -1,8 +1,11 @@
 <?php
 session_start();
-require 'conexion.php';
+require_once('conexion.php');
+include 'mensaje.php';
 $conexion = new Conexion;
 $con = $conexion->conexion();
+
+Mensaje::enlazar();
 
 //INSERCION
 if(isset($_POST['nombre'])){
@@ -11,23 +14,21 @@ if(isset($_POST['nombre'])){
 
 		$consulta = "insert into materia values(null,'".$_POST['nombre']."')";
 
-	$resultado = $con->query($consulta);
+		$resultado = $con->query($consulta);
 
-	$con->close();
-	if(!$resultado){
-		echo '<script>alert("¡No se ha podido registrar!")</script>';
+		$con->close();
+		if(!$resultado){
+			Mensaje::mostrarMensaje("Registro Materia", "¡No se ha podido registrar!","error");
+	        
+		}else{
+			Mensaje::mostrarMensaje("Registro Materia", "¡Se ha registrado correctamente!","success");
+	        header( "refresh:1.5; url=../index.php" );
+		}
+
 	}else{
-		echo '<script>alert("Se ha registrado correctamente!")</script>';
-		header("location: ../index.php");
-	}
-
-	}else{
-		echo "<script>alert('repetido')</script>";
-		header("location: ../index.php");
-	}
-
-}else{
-	echo "No creada";
+		Mensaje::mostrarMensaje("Registro Materia", "¡Esta materia ya existe!","error");
+	        header( "refresh:1.5; url=../index.php" );
+	    }
 }
 
 
@@ -38,14 +39,11 @@ if(isset($_POST['idd']) && estaVacio($_POST['idd'])){
 	$resultado = $con->query($consulta);
 	$con->close();
 	if(!$resultado){
-		echo '<script>alert("No se ha podido eliminar!")</script>';
+		Mensaje::mostrarMensaje("Eliminar Materia", "¡No se ha podido Eliminar!","error");
 	}else{
-		echo '<script>alert("Se ha eliminado correctamente!")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Eliminar Materia", "¡Se ha eliminado correctamente!","success");
+	        header( "refresh:1.5; url=../index.php" );
 	}
-}else{
-	echo '<script>alert("¡Este departamento no se puede eliminar!")</script>';
-	header("location: ../index.php");
 }
 
 
@@ -56,24 +54,25 @@ if(isset($_POST['nombree']) && isset($_POST['ide'])){
 		unset($_SESSION['idedit']);
 	}
 
-	if(!existe($_POST['nombree'])){
+		if(!existe($_POST['nombree'])){
 
-		$consulta = "UPDATE materia SET nombre = '".$_POST['nombree']."' WHERE id = ".$_POST['ide'];
+			$consulta = "UPDATE materia SET nombre = '".$_POST['nombree']."' WHERE id = ".$_POST['ide'];
 
-	$resultado = $con->query($consulta);
-	$con->close();
-	if(!$resultado){
-		echo '<script>alert("No se ha actualizado")</script>';
+		$resultado = $con->query($consulta);
+		$con->close();
+		if(!$resultado){
+			Mensaje::mostrarMensaje("Actualizar Materia", "¡No se ha podido actualizar!","error");
+		        header( "refresh:1.5; url=../index.php" );
+		}else{
+			$_SESSION['contenido'] = "materiasIndex";
+			Mensaje::mostrarMensaje("Actualizar Materia", "¡Se ha actulizado correctamente!","success");
+		        header( "refresh:1.5; url=../index.php" );
+		}
+
 	}else{
-		echo '<script>alert("Actualizado")</script>';
 		$_SESSION['contenido'] = "materiasIndex";
-		header("location: ../index.php");
-	}
-
-	}else{
-		echo '<script>alert("repetida")</script>';
-		$_SESSION['contenido'] = "materiasIndex";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizar Materia", "¡Ya existe esta materia!","error");
+	        header( "refresh:1.5; url=../index.php" );
 	}
 
 }

@@ -1,8 +1,11 @@
 <?php
 session_start();
-require 'conexion.php';
+require_once('conexion.php');
+include 'mensaje.php';
 $conexion = new Conexion;
 $con = $conexion->conexion();
+
+Mensaje::enlazar();
 
 
 
@@ -14,25 +17,21 @@ if(isset($_POST['docente']) && isset($_POST['materia']) && isset($_POST['anio'])
 
 		$consulta = "insert into docentemateria values(null,'".$_POST['materia']."','".$_POST['docente']."','".$_POST['anio']."','".$_POST['semestre']."','".$_POST['grupo']."')";
 
-	$resultado = $con->query($consulta);
+		$resultado = $con->query($consulta);
 
-	$con->close();
-	if(!$resultado){
-		echo '<script>alert("¡No se ha podido registrar!")</script>';
-	}else{
-		echo '<script>alert("Se ha registrado correctamente!")</script>';
-		header("location: ../index.php");
-	}
-
-
+		$con->close();
+		if(!$resultado){
+			Mensaje::mostrarMensaje("Asignacion de materia", "¡No se ha podido asignar la materia!","error");
+		}else{
+			Mensaje::mostrarMensaje("Asignacion de materia", "¡Se ha asignado la materia correctamente!","success");
+		    header( "refresh:1.5; url=../index.php" );
+		}
 
 	}else{
-		echo "No se pueden registrar materias anteriores";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Asignacion de materia", "¡No se pueden asignar materias anteriores!","warning");
+	    header( "refresh:1.5; url=../index.php" );
 	}
 
-}else{
-	echo "No creada";
 }
 
 
@@ -43,14 +42,11 @@ if(isset($_POST['idd']) && estaVacio($_POST['idd'])){
 	$resultado = $con->query($consulta);
 	$con->close();
 	if(!$resultado){
-		echo '<script>alert("No se ha podido eliminar!")</script>';
+		Mensaje::mostrarMensaje("Eliminar Asignacion de materia", "¡No se ha podido eliminar!","error");
 	}else{
-		echo '<script>alert("Se ha eliminado correctamenter!")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Eliminar Asignacion de materia", "¡Se ha eliminado correctamente!","success");
+	    header( "refresh:1.5; url=../index.php" );
 	}
-}else{
-	echo '<script>alert("No se puede eliminar o se perderán calificaciones")</script>';
-	header("location: ../index.php");
 }
 
 //ACTUALIZACION
@@ -60,24 +56,24 @@ if(isset($_POST['docentee']) && isset($_POST['materiae']) && isset($_POST['anioe
 		unset($_SESSION['idedit']);
 	}
 
-	if($_POST['anioe'] == date("Y")){
+		if($_POST['anioe'] == date("Y")){
 
-		$consulta = "UPDATE docentemateria SET materia = ".$_POST['materiae'].",puestodepartamento = ".$_POST['docentee'].", anio = ".$_POST['anioe'].", semestre = ".$_POST['semestree']." , grupo = '".$_POST['grupoe']."' WHERE id = ".$_POST['ide'];
+			$consulta = "UPDATE docentemateria SET materia = ".$_POST['materiae'].",puestodepartamento = ".$_POST['docentee'].", anio = ".$_POST['anioe'].", semestre = ".$_POST['semestree']." , grupo = '".$_POST['grupoe']."' WHERE id = ".$_POST['ide'];
 
-	$resultado = $con->query($consulta);
-	$con->close();
-	if(!$resultado){
-		echo '<script>alert("No se ha Actualizado")</script>';
+		$resultado = $con->query($consulta);
+		$con->close();
+		if(!$resultado){
+			Mensaje::mostrarMensaje("Actualizar Asignacion de materia", "¡No se ha podido actualizar!","error");
+		}else{
+			$_SESSION['contenido'] = "asignadasIndex";
+			Mensaje::mostrarMensaje("Actualizar Asignacion de materia", "¡Se ha actualizado correctamente!","success");
+		    header( "refresh:1.5; url=../index.php" );
+		}
+
 	}else{
-		echo '<script>alert("Actualizado")</script>';
 		$_SESSION['contenido'] = "asignadasIndex";
-		header("location: ../index.php");
-	}
-
-	}else{
-		echo "No se pueden registrar materias anteriores";
-		$_SESSION['contenido'] = "asignadasIndex";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizar Asignacion de materia", "¡No se puden actualizar materias anteriores!","error");
+	    header( "refresh:1.5; url=../index.php" );
 	}
 
 }

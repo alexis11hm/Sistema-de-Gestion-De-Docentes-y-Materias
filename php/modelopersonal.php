@@ -1,8 +1,13 @@
 <?php
 session_start();
 require_once('conexion.php');
+include 'mensaje.php';
 $conexion = new Conexion;
 $con = $conexion->conexion();
+
+Mensaje::enlazar();
+
+
 
 
 //INSERCION DE UN PERSONAL
@@ -48,10 +53,10 @@ if(isset($_POST['tituloa']) && isset($_POST['nombrea']) && isset($_POST['paterno
 	$resultado = $con->query($consulta);
 	$con->close();
 	if(!$resultado){
-		echo '<script>alert("No se ha podido registrar!")</script>';
+		Mensaje::mostrarMensaje("Registro Personal", "¡No se ha podido registrar!","error");
 	}else{
-		echo '<script>alert("Se ha registrado correctamenter!")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Registro Personal", "¡Se ha registrado correctamente!","success");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
 				//////////////////
@@ -59,23 +64,22 @@ if(isset($_POST['tituloa']) && isset($_POST['nombrea']) && isset($_POST['paterno
 
 
 	}else{
-		echo '<script>alert("correo repetido")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Registro Personal", "¡Este correo ya existe!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 		
 	}else{
-		echo '<script>alert("curp repetido")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Registro Personal", "¡Esta CURP ya existe!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
 	}else{
-		echo '<script>alert("rfc repetido")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Registro Personal", "¡Esta RFC ya existe!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
-}else{
-	echo "No creada";
 }
+
 
 //ElIMINACION DE UN PERSONAL
 if(isset($_POST['idd'])){
@@ -100,8 +104,8 @@ if(isset($_POST['idd'])){
 			if(!$resultado){
 				echo '<script>alert("No se ha podido eliminar!")</script>';
 			}else{
-				echo '<script>alert("Se ha eliminado correctamenter!")</script>';
-				header("location: ../index.php");
+				Mensaje::mostrarMensaje("Eliminar Personal", "¡Personal Eliminado Crorrectamente!","success");
+        		header( "refresh:1.5; url=../index.php" );
 			}
 		}
 
@@ -138,7 +142,9 @@ if(isset($_POST['tituloe']) && isset($_POST['nombree']) && isset($_POST['paterno
 	$foto = $_FILES['fotoe']['name'];
 	$ruta = $_FILES['fotoe']['tmp_name'];
 	$destino = "fotos/".$foto;
-	copy($ruta, $destino);
+	if($foto != ""){
+		copy($ruta, $destino);
+	}
 
 	$consulta = "UPDATE personal SET
 				titulo = '".$_POST['tituloe']."',
@@ -158,33 +164,33 @@ if(isset($_POST['tituloe']) && isset($_POST['nombree']) && isset($_POST['paterno
 	$resultado = $con->query($consulta);
 	$con->close();
 	if(!$resultado){
-		echo '<script>alert("No se ha actualizar el personal!")</script>';
+		Mensaje::mostrarMensaje("Actualizar Personal", "¡Personal No Actualizado!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}else{
-		echo '<script>alert("Se ha actualizado correctamenter!")</script>';
 		$_SESSION['contenido'] = "vistapersonal";
-		header("location: ../index.php");
-
+		Mensaje::mostrarMensaje("Actualizar Personal", "¡Personal Actualizado Correctamente!","success");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
 				///////////////////////////
 
 		
 	}else{
-		echo '<script>alert("correo repetido")</script>';
 		$_SESSION['contenido'] = "vistapersonal";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizar Personal", "¡Este Correo ya Existe!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 		
 	}else{
-		echo '<script>alert("curp repetida")</script>';
 		$_SESSION['contenido'] = "vistapersonal";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizar Personal", "¡Esta CURP ya Existe!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
 	}else{
-		echo '<script>alert("correo repetido")</script>';
 		$_SESSION['contenido'] = "vistapersonal";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizar Personal", "¡Este RFC ya Existe!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
 }

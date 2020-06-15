@@ -1,8 +1,11 @@
 <?php
 session_start();
-require 'conexion.php';
+require_once('conexion.php');
+include 'mensaje.php';
 $conexion = new Conexion;
 $con = $conexion->conexion();
+
+Mensaje::enlazar();
 
 //INSERCION
 if(isset($_POST['nombre'])){
@@ -11,23 +14,22 @@ if(isset($_POST['nombre'])){
 
 		$consulta = "insert into puesto values(null,'".$_POST['nombre']."')";
 
-	$resultado = $con->query($consulta);
+		$resultado = $con->query($consulta);
 
-	$con->close();
-	if(!$resultado){
-		echo '<script>alert("¡No se ha podido registrar!")</script>';
+		$con->close();
+		if(!$resultado){
+			Mensaje::mostrarMensaje("Registro Puesto", "¡No se ha podido registrar!","error");
+	        header( "refresh:1.5; url=../index.php" );
+		}else{
+			Mensaje::mostrarMensaje("Registro Puesto", "¡Se ha registrado correctamente!","success");
+	        header( "refresh:1.5; url=../index.php" );
+		}
+
 	}else{
-		echo '<script>alert("Se ha registrado correctamente!")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Registro Puesto", "¡Ya existe este puesto!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
-	}else{
-		echo "<script>alert('repetido')</script>";
-		header("location: ../index.php");
-	}
-
-}else{
-	echo "No creada";
 }
 
 
@@ -38,13 +40,12 @@ if(isset($_POST['idd']) && estaVacio($_POST['idd']) && $_POST['idd'] > 2){
 	$resultado = $con->query($consulta);
 	$con->close();
 	if(!$resultado){
-		echo '<script>alert("No se ha podido eliminar!")</script>';
+		Mensaje::mostrarMensaje("Eliminar Puesto", "¡No se ha podido Eliminar!","error");
 	}else{
-		echo '<script>alert("Se ha eliminado correctamenter!")</script>';
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Eliminar Puesto", "¡Se ha eliminado correctamente!","success");
+        header( "refresh:1.5; url=../index.php" );
 	}
 }else{
-	echo '<script>alert("¡Este departamento no se puede eliminar!")</script>';
 	header("location: ../index.php");
 }
 
@@ -60,20 +61,21 @@ if(isset($_POST['nombree']) && isset($_POST['ide']) && $_POST['ide'] > 2){
 
 		$consulta = "UPDATE puesto SET nombre = '".$_POST['nombree']."' WHERE id = ".$_POST['ide'];
 
-	$resultado = $con->query($consulta);
-	$con->close();
-	if(!$resultado){
-		echo '<script>alert("No se ha actualizado")</script>';
-	}else{
-		echo '<script>alert("Actualizado")</script>';
-		$_SESSION['contenido'] = "puestosIndex";
-		header("location: ../index.php");
-	}
+		$resultado = $con->query($consulta);
+		$con->close();
+		if(!$resultado){
+			Mensaje::mostrarMensaje("Actualizar Puesto", "¡No se ha podido Actualizar!","error");
+	        	
+		}else{
+			$_SESSION['contenido'] = "puestosIndex";
+			Mensaje::mostrarMensaje("Actualizar Puesto", "¡Se ha actualizado correctamente!","success");
+	        header( "refresh:1.5; url=../index.php" );
+		}
 
 	}else{
-		echo '<script>alert("repetido")</script>';
 		$_SESSION['contenido'] = "puestosIndex";
-		header("location: ../index.php");
+		Mensaje::mostrarMensaje("Actualizar Puesto", "¡Este puesto ya existe!","error");
+        header( "refresh:1.5; url=../index.php" );
 	}
 
 }

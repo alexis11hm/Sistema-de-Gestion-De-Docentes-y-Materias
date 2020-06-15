@@ -10,7 +10,17 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="plugins/dist/img/user.png" class="img-circle elevation-2" alt="User Image">
+          <?php
+          require_once('php/conexion.php');
+          $conexion = new Conexion;
+          $con = $conexion->conexion(); 
+          $consulta = "select * from personal where id=".$_SESSION['id'];
+          $resultado = $con->query($consulta);
+          if(!$resultado) die ("No existen materias registradas");
+          $renglon = $resultado->fetch_array(MYSQLI_ASSOC);
+
+          ?>
+          <img src="<?php echo "php/".$renglon['foto'] ?>" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block"><?php $nombre = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : ''; echo $nombre; ?></a>
