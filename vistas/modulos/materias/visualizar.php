@@ -8,12 +8,12 @@
 
         ?>
     </div>
-    <h4 style="margin-top: 10px">Personal de:  <?php
+    <h4 style="margin-top: 10px">Docentes que imparten <?php
 
         require_once('php/conexion.php');
         $conexion = new Conexion;
         $con = $conexion->conexion(); 
-        $consulta = "SELECT * FROM departamento where id = ".$_SESSION['idver'];
+        $consulta = "SELECT * FROM materia where id = ".$_SESSION['idver'];
         $resultado = $con->query($consulta);
         if(!$resultado) die ("Error al realizar la consulta");
         $renglon = $resultado->fetch_array(MYSQLI_ASSOC);
@@ -27,7 +27,7 @@
           <th scope="col">Nombre</th>
           <th scope="col">Paterno</th>
           <th scope="col">Materno</th>
-          <th scope="col">Puesto</th>
+          <th scope="col">Departamento</th>
         </tr>
       </thead>
       <tbody>
@@ -35,9 +35,9 @@
 
         $conexion = new Conexion;
         $con = $conexion->conexion(); 
-        $idDepartamento = $_SESSION['idver'];
+        $idMateria = $_SESSION['idver'];
 
-        $consulta = "SELECT personal.nombre as nombre, paterno,materno,puesto.nombre as puesto FROM puestodepartamento join personal on puestodepartamento.personal = personal.id join departamento on puestodepartamento.departamento = departamento.id join puesto on puestodepartamento.puesto = puesto.id where departamento.id = ".$idDepartamento;
+        $consulta = "SELECT personal.nombre as nombre, paterno,materno,departamento.nombre as departamento FROM docentemateria join puestodepartamento on docentemateria.puestodepartamento = puestodepartamento.id join personal on puestodepartamento.personal = personal.id join departamento on puestodepartamento.departamento = departamento.id join puesto on puestodepartamento.puesto = puesto.id where docentemateria.materia = ".$idMateria;
 
         $resultado = $con->query($consulta);
         if(!$resultado) die ("Error al realizar la consulta");
@@ -50,7 +50,7 @@
                   <td>'.$renglon["nombre"].'</td>
                   <td>'.$renglon["paterno"].'</td>
                   <td>'.$renglon["materno"].'</td>
-                  <td>'.$renglon["puesto"].'</td>
+                  <td>'.$renglon["departamento"].'</td>
             </tr>';
         }
 

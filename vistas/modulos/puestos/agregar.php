@@ -1,37 +1,28 @@
 <div class="container">
 
 	  <!-- Button trigger modal -->
-	<button type="button" class=" col-12 btn btn-success" data-toggle="modal" data-target="#modalAgregarDepartamento">
+	<button type="button" class=" col-12 btn btn-success" data-toggle="modal" data-target="#modalAgregarPuesto">
 	   <label for="" class="fas fa-plus"> </label>
 	</button>
 
 	<!-- Modal -->
-	<div class="modal fade" id="modalAgregarDepartamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade" id="modalAgregarPuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle">Departamento</h5>
+	        <h5 class="modal-title" id="exampleModalLongTitle">Puesto</h5>
 	      </div>
 
-	      <form method="POST" action="php/modeloDepartamento.php" enctype="multipart/form-data">
+	      <form method="POST" action="php/modeloPuesto.php" enctype="multipart/form-data">
 	      <div class="modal-body">
 	        <div class="card">
 		    <div class="card-body register-card-body">
-		      <p class="login-box-msg"><b>Registrar Departamento</b></p>
+		      <p class="login-box-msg"><b>Registrar Puesto</b></p>
 
 		      
 		        <div class="input-group mb-3">
 		          <input type="text" class="form-control" placeholder="Nombre" name="nombre" required="" >
 		          <div class="input-group-append" onkeyup="" maxlength="30">
-		            <div class="input-group-text">
-		              <span class="fas fa-square"></span>
-		            </div>
-		          </div>
-		        </div>
-
-		        <div class="input-group mb-3">
-		          <input type="text" class="form-control" placeholder="Abreviatura" name="abreviatura" required="" onkeyup="" maxlength="30">
-		          <div class="input-group-append">
 		            <div class="input-group-text">
 		              <span class="fas fa-square"></span>
 		            </div>

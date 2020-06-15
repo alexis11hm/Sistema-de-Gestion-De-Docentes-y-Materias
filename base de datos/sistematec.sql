@@ -1,130 +1,108 @@
--- MariaDB dump 10.17  Distrib 10.4.11-MariaDB, for Win64 (AMD64)
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: sistematec
--- ------------------------------------------------------
--- Server version	10.4.11-MariaDB
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 15-06-2020 a las 17:29:17
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `calificacion`
+-- Base de datos: `sistematec`
 --
 
-DROP TABLE IF EXISTS `calificacion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `calificacion`
+--
+
 CREATE TABLE `calificacion` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `unidad` int(1) NOT NULL,
-  `documento` varchar(150) DEFAULT NULL,
-  `docentemateria` int(11) NOT NULL,
-  `fecha` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `documento` varchar(30) NOT NULL,
+  `docentemateria` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `calificacion`
+-- Estructura de tabla para la tabla `departamento`
 --
 
-LOCK TABLES `calificacion` WRITE;
-/*!40000 ALTER TABLE `calificacion` DISABLE KEYS */;
-INSERT INTO `calificacion` VALUES (28,1,'archivos/calificaciones_poo_2020.csv',3,'2020-06-12'),(29,3,'archivos/calificaciones.csv',1,'2020-06-12'),(30,6,'archivos/calificaciones_poo_2020 - copia.csv',2,'2020-06-12');
-/*!40000 ALTER TABLE `calificacion` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `departamento`
---
-
-DROP TABLE IF EXISTS `departamento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `departamento` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) NOT NULL,
-  `abreviatura` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `abreviatura` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `departamento`
+-- Volcado de datos para la tabla `departamento`
 --
 
-LOCK TABLES `departamento` WRITE;
-/*!40000 ALTER TABLE `departamento` DISABLE KEYS */;
-INSERT INTO `departamento` VALUES (2,'Academia de Sistemas y Computa','SyC'),(3,'Academia de Ciencias Basicas','CB'),(4,'Academia de Ingenieria Industr','ID'),(5,'Academia de Ciencias Economico','CEA'),(6,'Academia de Ciencias de la Tie','CT');
-/*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `departamento` (`id`, `nombre`, `abreviatura`) VALUES
+(3, 'Academia de Ciencias Basicas', 'CBA'),
+(15, 'Sistemas y Computación', 'SIS');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `docentemateria`
+-- Estructura de tabla para la tabla `docentemateria`
 --
 
-DROP TABLE IF EXISTS `docentemateria`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `docentemateria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `materia` int(11) NOT NULL,
   `puestodepartamento` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `anio` int(4) NOT NULL,
+  `semestre` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `docentemateria`
+-- Volcado de datos para la tabla `docentemateria`
 --
 
-LOCK TABLES `docentemateria` WRITE;
-/*!40000 ALTER TABLE `docentemateria` DISABLE KEYS */;
-INSERT INTO `docentemateria` VALUES (1,2,1),(2,3,1),(3,5,7);
-/*!40000 ALTER TABLE `docentemateria` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `docentemateria` (`id`, `materia`, `puestodepartamento`, `anio`, `semestre`) VALUES
+(6, 5, 13, 2020, 1);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `materia`
+-- Estructura de tabla para la tabla `materia`
 --
 
-DROP TABLE IF EXISTS `materia`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `materia` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `materia`
+-- Volcado de datos para la tabla `materia`
 --
 
-LOCK TABLES `materia` WRITE;
-/*!40000 ALTER TABLE `materia` DISABLE KEYS */;
-INSERT INTO `materia` VALUES (1,'Programacion Orientada Objetos'),(2,'Sistemas Operativos'),(3,'Redes de Computadoras'),(4,'Calculo Difrencial'),(5,'Calculo Integral');
-/*!40000 ALTER TABLE `materia` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `materia` (`id`, `nombre`) VALUES
+(3, 'Cálculo Integral'),
+(4, 'Cálculo vectorial'),
+(5, 'Programación Web');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `personal`
+-- Estructura de tabla para la tabla `personal`
 --
 
-DROP TABLE IF EXISTS `personal`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `personal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `titulo` varchar(50) DEFAULT NULL,
   `nombre` varchar(30) NOT NULL,
   `paterno` varchar(30) NOT NULL,
@@ -135,78 +113,156 @@ CREATE TABLE `personal` (
   `foto` varchar(100) DEFAULT NULL,
   `correo` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
-  `tipo` int(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `tipo` int(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `personal`
+-- Volcado de datos para la tabla `personal`
 --
 
-LOCK TABLES `personal` WRITE;
-/*!40000 ALTER TABLE `personal` DISABLE KEYS */;
-INSERT INTO `personal` VALUES (1,'Ingeniero en Sistemas Computacionales','Alexis','Hernandez','Mondragon','Hombre','HEMA981206YU6','HETA981106HMDRL07','fotos/foto.jpg','alexis11hm@gmail.com','12345678',2),(2,'Ingeniera En Sistemas Computacionales','Dulce Caroll','Peñaloza ','Tello','Mujer','PETC131292TR3','PETEDC123456HMNRJL','fotos/foto4.png','caroll@gmail.com','12345678',2),(3,'Ingeniero En Sistemas Computacionales','Erik Salvdaor','Padilla','Gonzalez','Hombre','PAGS123456HM2','PAGS123456HMNRLP07','fotos/foto3.jpg','erikgonzna@gmail.com','12345678',2),(8,'Ingeniero Electromecanico','Guillermo','Peñaloza ','Camacho','Hombre','PETEDC123456','PETEDC123456HMNRJL','fotos/hombre-joven-inconformista-brazos-cruzados_1368-25112.jpg','gui@gmail.com','12345678',1);
-/*!40000 ALTER TABLE `personal` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `personal` (`id`, `titulo`, `nombre`, `paterno`, `materno`, `sexo`, `rfc`, `curp`, `foto`, `correo`, `password`, `tipo`) VALUES
+(1, 'Ingeniero en Sistemas Computacionales', 'Alexis', 'Hernandez', 'Mondragon', 'Hombre', 'HEMA981206YU6', 'HETA981106HMDRL07', 'fotos/foto.jpg', 'alexis11hm@gmail.com', '12345678', 2),
+(2, 'Ingeniera En Sistemas Computacionales', 'Dulce Caroll', 'Peñaloza ', 'Tello', 'Hombre', 'PETC131292TR3', 'PETEDC123456HMNRJL', 'fotos/foto4.png', 'caroll@gmail.com', '12345678', 2),
+(3, 'Ingeniero En Sistemas Computacionales', 'Erik Salvador', 'Padilla', 'Gonzalez', 'Hombre', 'PAGS123456HM2', 'PAGS123456HMNRLP07', 'fotos/foto3.jpg', 'erikgonzna@gmail.com', '12345678', 2),
+(5, 'Ing. Sistemas Computacionales', 'Jose', 'Cicero', 'Barraza', 'Hombre', '312321', 'sfadsfasfs', 'fotos/images.jpg', 'pa@pa.com', '12345678', 2);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `puesto`
+-- Estructura de tabla para la tabla `puesto`
 --
 
-DROP TABLE IF EXISTS `puesto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `puesto` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `puesto`
+-- Volcado de datos para la tabla `puesto`
 --
 
-LOCK TABLES `puesto` WRITE;
-/*!40000 ALTER TABLE `puesto` DISABLE KEYS */;
-INSERT INTO `puesto` VALUES (1,'Docente'),(2,'Jefe'),(3,'Secretaria'),(4,'Auxiliar'),(5,'Coordinador');
-/*!40000 ALTER TABLE `puesto` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `puesto` (`id`, `nombre`) VALUES
+(1, 'Docente'),
+(2, 'Jefe'),
+(4, 'Auxiliar'),
+(9, 'Intendente');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `puestodepartamento`
+-- Estructura de tabla para la tabla `puestodepartamento`
 --
 
-DROP TABLE IF EXISTS `puestodepartamento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `puestodepartamento` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `personal` int(11) NOT NULL,
   `departamento` int(11) NOT NULL,
-  `puesto` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `puesto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `puestodepartamento`
+-- Volcado de datos para la tabla `puestodepartamento`
 --
 
-LOCK TABLES `puestodepartamento` WRITE;
-/*!40000 ALTER TABLE `puestodepartamento` DISABLE KEYS */;
-INSERT INTO `puestodepartamento` VALUES (1,1,2,1),(2,2,2,1),(3,2,2,4),(4,3,2,2),(6,3,5,2),(7,1,3,1),(8,3,2,1);
-/*!40000 ALTER TABLE `puestodepartamento` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `puestodepartamento` (`id`, `personal`, `departamento`, `puesto`) VALUES
+(10, 1, 3, 1),
+(11, 1, 3, 4),
+(12, 3, 15, 2),
+(13, 2, 15, 1);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `calificacion`
+--
+ALTER TABLE `calificacion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `docentemateria`
+--
+ALTER TABLE `docentemateria`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `materia`
+--
+ALTER TABLE `materia`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `personal`
+--
+ALTER TABLE `personal`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `puesto`
+--
+ALTER TABLE `puesto`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `puestodepartamento`
+--
+ALTER TABLE `puestodepartamento`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `calificacion`
+--
+ALTER TABLE `calificacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `docentemateria`
+--
+ALTER TABLE `docentemateria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `materia`
+--
+ALTER TABLE `materia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `personal`
+--
+ALTER TABLE `personal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `puesto`
+--
+ALTER TABLE `puesto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `puestodepartamento`
+--
+ALTER TABLE `puestodepartamento`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2020-06-12 21:08:10

@@ -27,7 +27,6 @@
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Personal
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
           </li>
@@ -37,7 +36,6 @@
               <i class="nav-icon far fa-building"></i>
               <p>
                 Departamentos
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
           </li>
@@ -47,7 +45,6 @@
               <i class="nav-icon fas fa-id-badge"></i>
               <p>
                 Puestos
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
           </li>
@@ -57,7 +54,15 @@
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Materias
-                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview menu-open">
+            <a href="php/asignadas/asignadasIndex.php" class="nav-link active">
+              <i class="nav-icon fas fa-plus-square"></i>
+              <p>
+                Materias Asignadas
               </p>
             </a>
           </li>

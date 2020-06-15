@@ -77,6 +77,33 @@ session_start();
 					case 'departamentosIndex':
 						include 'vistas/modulos/departamentos/departamentoIndex.php';
 					break;
+					case 'departamentoEditar':
+						include 'vistas/modulos/departamentos/editar.php';
+					break;
+					case 'puestosIndex':
+						include 'vistas/modulos/puestos/puestoIndex.php';
+					break;
+					case 'puestoEditar':
+						include 'vistas/modulos/puestos/editar.php';
+					break;
+					case 'puestoVisualizar':
+						include 'vistas/modulos/puestos/visualizar.php';
+					break;
+					case 'materiasIndex':
+						include 'vistas/modulos/materias/materiaIndex.php';
+					break;
+					case 'materiaEditar':
+						include 'vistas/modulos/materias/editar.php';
+					break;
+					case 'materiaVisualizar':
+						include 'vistas/modulos/materias/visualizar.php';
+					break;
+					case 'asignadasIndex':
+						include 'vistas/modulos/asignadas/asignadaIndex.php';
+					break;
+					case 'asignadaEditar':
+						include 'vistas/modulos/asignadas/editar.php';
+					break;
 				}
 
 			}else{
