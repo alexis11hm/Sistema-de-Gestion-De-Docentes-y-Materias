@@ -11,7 +11,16 @@ if(isset($_POST['tituloa']) && isset($_POST['nombrea']) && isset($_POST['paterno
 	isset($_FILES['fotoa']) && isset($_POST['passworda']) && isset($_POST['correoa']) &&
 	isset($_POST['tipoa']) && isset($_POST['maternoa'])){
 
-	if(strcmp($_POST['tipoa'], "Administrador") == 0){
+	if(!existeRFC($_POST['rfca'])){
+
+		if(!existeCURP($_POST['curpa'])){
+
+			if(!existeCorreo($_POST['correoa'])){
+
+		
+		///////////////////////
+
+				if(strcmp($_POST['tipoa'], "Administrador") == 0){
 		$tipo = 2;
 	}else{
 		$tipo = 1;
@@ -42,6 +51,25 @@ if(isset($_POST['tituloa']) && isset($_POST['nombrea']) && isset($_POST['paterno
 		echo '<script>alert("No se ha podido registrar!")</script>';
 	}else{
 		echo '<script>alert("Se ha registrado correctamenter!")</script>';
+		header("location: ../index.php");
+	}
+
+				//////////////////
+
+
+
+	}else{
+		echo '<script>alert("correo repetido")</script>';
+		header("location: ../index.php");
+	}
+		
+	}else{
+		echo '<script>alert("curp repetido")</script>';
+		header("location: ../index.php");
+	}
+
+	}else{
+		echo '<script>alert("rfc repetido")</script>';
 		header("location: ../index.php");
 	}
 
@@ -92,7 +120,16 @@ if(isset($_POST['tituloe']) && isset($_POST['nombree']) && isset($_POST['paterno
 		unset($_SESSION['idedit']);
 	}
 
-	if(strcmp($_POST['tipoe'], "Administrador") == 0){
+	if(!existeRFCEditar($_POST['rfce'],$_POST['ide'])){
+
+		if(!existeCURPEditar($_POST['curpe'],$_POST['ide'])){
+
+			if(!existeCorreoEditar($_POST['correoe'],$_POST['ide'])){
+
+		
+				//////////////////////////
+
+				if(strcmp($_POST['tipoe'], "Administrador") == 0){
 		$tipo = 2;
 	}else{
 		$tipo = 1;
@@ -129,7 +166,96 @@ if(isset($_POST['tituloe']) && isset($_POST['nombree']) && isset($_POST['paterno
 
 	}
 
+				///////////////////////////
+
+		
+	}else{
+		echo '<script>alert("correo repetido")</script>';
+		$_SESSION['contenido'] = "vistapersonal";
+		header("location: ../index.php");
+	}
+		
+	}else{
+		echo '<script>alert("curp repetida")</script>';
+		$_SESSION['contenido'] = "vistapersonal";
+		header("location: ../index.php");
+	}
+
+	}else{
+		echo '<script>alert("correo repetido")</script>';
+		$_SESSION['contenido'] = "vistapersonal";
+		header("location: ../index.php");
+	}
+
 }
 
+function existeRFC($rfc){
+	$conexion = new Conexion;
+	$con = $conexion->conexion(); 
+	$consulta = "SELECT * FROM personal WHERE rfc = '".$rfc."'";
+	$resultado = $con->query($consulta);
+	if(!$resultado) die ("Error al realizar la consulta");
+	$existencia = $resultado->num_rows;
+	if($existencia>0)return true;
+	return false;
+}
+
+function existeCURP($curp){
+	$conexion = new Conexion;
+	$con = $conexion->conexion(); 
+	$consulta = "SELECT * FROM personal WHERE curp = '".$curp."'";
+	$resultado = $con->query($consulta);
+	if(!$resultado) die ("Error al realizar la consulta");
+	$existencia = $resultado->num_rows;
+	if($existencia>0)return true;
+	return false;
+}
+
+function existeCorreo($correo){
+	$conexion = new Conexion;
+	$con = $conexion->conexion(); 
+	$consulta = "SELECT * FROM personal WHERE correo = '".$correo."'";
+	$resultado = $con->query($consulta);
+	if(!$resultado) die ("Error al realizar la consulta");
+	$existencia = $resultado->num_rows;
+	echo "<script>alert('".$consulta."')</script>";
+	if($existencia>0)return true;
+	return false;
+}
+
+
+/////////////////
+function existeRFCEditar($rfc,$id){
+	$conexion = new Conexion;
+	$con = $conexion->conexion(); 
+	$consulta = "SELECT * FROM personal WHERE rfc = '".$rfc."' and id != ".$id;
+	$resultado = $con->query($consulta);
+	if(!$resultado) die ("Error al realizar la consulta");
+	$existencia = $resultado->num_rows;
+	if($existencia>0)return true;
+	return false;
+}
+
+function existeCURPEditar($curp,$id){
+	$conexion = new Conexion;
+	$con = $conexion->conexion(); 
+	$consulta = "SELECT * FROM personal WHERE curp = '".$curp."' and id != ".$id;
+	$resultado = $con->query($consulta);
+	if(!$resultado) die ("Error al realizar la consulta");
+	$existencia = $resultado->num_rows;
+	if($existencia>0)return true;
+	return false;
+}
+
+function existeCorreoEditar($correo,$id){
+	$conexion = new Conexion;
+	$con = $conexion->conexion(); 
+	$consulta = "SELECT * FROM personal WHERE correo = '".$correo."' and id != ".$id;
+	$resultado = $con->query($consulta);
+	if(!$resultado) die ("Error al realizar la consulta");
+	$existencia = $resultado->num_rows;
+	if($existencia>0)return true;
+	return false;
+}
 
 ?>
