@@ -80,6 +80,9 @@ session_start();
 					case 'departamentoEditar':
 						include 'vistas/modulos/departamentos/editar.php';
 					break;
+					case 'departamentoVisualizar':
+						include 'vistas/modulos/departamentos/visualizar.php';
+					break;
 					case 'puestosIndex':
 						include 'vistas/modulos/puestos/puestoIndex.php';
 					break;

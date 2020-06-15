@@ -7,12 +7,12 @@ $con = $conexion->conexion();
 
 
 //INSERCION
-if(isset($_POST['docente']) && isset($_POST['materia']) && isset($_POST['anio']) && isset($_POST['semestre'])){
+if(isset($_POST['docente']) && isset($_POST['materia']) && isset($_POST['anio']) && isset($_POST['semestre']) && isset($_POST['grupo'])){
 
 	if($_POST['anio'] == date("Y")){
 
 
-		$consulta = "insert into docentemateria values(null,'".$_POST['materia']."','".$_POST['docente']."','".$_POST['anio']."','".$_POST['semestre']."')";
+		$consulta = "insert into docentemateria values(null,'".$_POST['materia']."','".$_POST['docente']."','".$_POST['anio']."','".$_POST['semestre']."','".$_POST['grupo']."')";
 
 	$resultado = $con->query($consulta);
 
@@ -54,7 +54,7 @@ if(isset($_POST['idd']) && estaVacio($_POST['idd'])){
 }
 
 //ACTUALIZACION
-if(isset($_POST['docentee']) && isset($_POST['materiae']) && isset($_POST['anioe']) && isset($_POST['semestree']) && isset($_POST['ide'])){
+if(isset($_POST['docentee']) && isset($_POST['materiae']) && isset($_POST['anioe']) && isset($_POST['semestree']) && isset($_POST['grupoe']) && isset($_POST['ide'])){
 
 	if(isset($_SESSION['idedit'])){
 		unset($_SESSION['idedit']);
@@ -62,7 +62,7 @@ if(isset($_POST['docentee']) && isset($_POST['materiae']) && isset($_POST['anioe
 
 	if($_POST['anioe'] == date("Y")){
 
-		$consulta = "UPDATE docentemateria SET materia = ".$_POST['materiae'].",puestodepartamento = ".$_POST['docentee'].", anio = ".$_POST['anioe'].", semestre = ".$_POST['semestree']." WHERE id = ".$_POST['ide'];
+		$consulta = "UPDATE docentemateria SET materia = ".$_POST['materiae'].",puestodepartamento = ".$_POST['docentee'].", anio = ".$_POST['anioe'].", semestre = ".$_POST['semestree']." , grupo = '".$_POST['grupoe']."' WHERE id = ".$_POST['ide'];
 
 	$resultado = $con->query($consulta);
 	$con->close();

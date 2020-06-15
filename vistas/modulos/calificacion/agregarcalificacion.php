@@ -34,14 +34,18 @@ $con = $conexion->conexion();
 
 			       $conexion = new Conexion;
 			       $con = $conexion->conexion(); 
-			       $consulta = "select p.nombre as nombre_persona,p.id as id_persona,m.nombre as materia,dm.id as id_docentemateria from personal p join puestodepartamento pd on p.id = pd.personal join puesto pu on pu.id = pd.puesto join departamento d on d.id = pd.departamento join docentemateria dm on dm.puestodepartamento = pd.id join materia m on m.id = dm.materia having id_persona =".$_SESSION['id'];
+			       $consulta = "select p.nombre as nombre_persona,p.id as id_persona,m.nombre as materia,dm.id as id_docentemateria, anio,semestre,grupo from personal p join puestodepartamento pd on p.id = pd.personal join puesto pu on pu.id = pd.puesto join departamento d on d.id = pd.departamento join docentemateria dm on dm.puestodepartamento = pd.id join materia m on m.id = dm.materia having id_persona =".$_SESSION['id'];
 			       $resultado = $con->query($consulta);
 			       if(!$resultado) die ("Error al realizar la consulta");
 
 			       $renglones = $resultado->num_rows;
 			       for($i = 0; $i<$renglones; $i++){
 			       	$renglon = $resultado->fetch_array(MYSQLI_ASSOC);
-			       	echo '<option value="'.$renglon['id_docentemateria'].'">'.$renglon['materia'].'</option>';
+			       	if($renglon['semestre'] == 1){
+			       		echo '<option value="'.$renglon['id_docentemateria'].'">'.$renglon['materia']." - ".$renglon['anio'].' - '.$renglon['grupo'].' - Enero / Junio </option>';
+			       	}else{
+			       		echo '<option value="'.$renglon['id_docentemateria'].'">'.$renglon['materia']." - ".$renglon['anio'].' - '.$renglon['grupo'].' - Agosto / Diciembre </option>';
+			       	}
 			       
 			       }
 
@@ -66,7 +70,17 @@ $con = $conexion->conexion();
 		        </div>
 
 		        <div class="input-group mb-3">
-		          <input type="number" class="form-control" placeholder="Unidad" name="unidada"  required="" onkeyup="" maxlength="1" max="8" min="1">
+					
+					<select name="unidada" class="form-control" id="">
+						<option value="1">I</option>
+						<option value="2">II</option>
+						<option value="3">III</option>
+						<option value="4">IV</option>
+						<option value="5">V</option>
+						<option value="6">VI</option>
+						<option value="7">VII</option>
+					</select>
+
 		          <div class="input-group-append">
 		            <div class="input-group-text">
 		              <span class="fas fa-square"></span>
@@ -92,4 +106,4 @@ $con = $conexion->conexion();
 	  </div>
 	</div>
  
-</div>
+</div>	

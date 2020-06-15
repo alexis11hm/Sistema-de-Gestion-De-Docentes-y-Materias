@@ -7,7 +7,9 @@ $con = $conexion->conexion();
 //INSERCION
 if(isset($_POST['nombre'])){
 
-	$consulta = "insert into materia values(null,'".$_POST['nombre']."')";
+	if(!existe($_POST['nombre'])){
+
+		$consulta = "insert into materia values(null,'".$_POST['nombre']."')";
 
 	$resultado = $con->query($consulta);
 
@@ -16,6 +18,11 @@ if(isset($_POST['nombre'])){
 		echo '<script>alert("¡No se ha podido registrar!")</script>';
 	}else{
 		echo '<script>alert("Se ha registrado correctamente!")</script>';
+		header("location: ../index.php");
+	}
+
+	}else{
+		echo "<script>alert('repetido')</script>";
 		header("location: ../index.php");
 	}
 
@@ -49,7 +56,9 @@ if(isset($_POST['nombree']) && isset($_POST['ide'])){
 		unset($_SESSION['idedit']);
 	}
 
-	$consulta = "UPDATE materia SET nombre = '".$_POST['nombree']."' WHERE id = ".$_POST['ide'];
+	if(!existe($_POST['nombree'])){
+
+		$consulta = "UPDATE materia SET nombre = '".$_POST['nombree']."' WHERE id = ".$_POST['ide'];
 
 	$resultado = $con->query($consulta);
 	$con->close();
@@ -57,6 +66,12 @@ if(isset($_POST['nombree']) && isset($_POST['ide'])){
 		echo '<script>alert("No se ha actualizado")</script>';
 	}else{
 		echo '<script>alert("Actualizado")</script>';
+		$_SESSION['contenido'] = "materiasIndex";
+		header("location: ../index.php");
+	}
+
+	}else{
+		echo '<script>alert("repetida")</script>';
 		$_SESSION['contenido'] = "materiasIndex";
 		header("location: ../index.php");
 	}
@@ -72,6 +87,17 @@ function estaVacio($materia){
 	$existencia = $resultado->num_rows;
 	if($existencia>0)return false;
 	return true;
+}
+
+function existe($nombre){
+	$conexion = new Conexion;
+	$con = $conexion->conexion(); 
+	$consulta = "SELECT * FROM materia WHERE nombre = '".$nombre."'";
+	$resultado = $con->query($consulta);
+	if(!$resultado) die ("Error al realizar la consulta");
+	$existencia = $resultado->num_rows;
+	if($existencia>0)return true;
+	return false;
 }
 
 ?>

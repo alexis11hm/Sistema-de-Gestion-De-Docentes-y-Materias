@@ -98,6 +98,11 @@ $docentemateria = $resultado->fetch_array(MYSQLI_ASSOC);
 				?>
 			</select>
 		</div>
+
+		<div class="form-group mb-3">
+			<label for="">Grupo</label>
+			<input type="text" required="" class="form-control" name="grupoe" value="<?php echo $docentemateria['grupo']; ?>">
+		</div>
 		      
 	        <input type="submit" class="btn btn-primary" name="registrar" value="Guardar Datos">
 	      

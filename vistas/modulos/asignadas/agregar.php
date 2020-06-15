@@ -84,6 +84,11 @@
 				<option value="2">Agosto - Diciembre</option>
 			</select>
 		</div>
+
+		<div class="form-group mb-3">
+			<label for="">Grupo</label>
+			<input type="text" class="form-control" name="grupo" id="grupo" required="">
+		</div>
 		      
 		    </div>
 		    <!-- /.form-box -->

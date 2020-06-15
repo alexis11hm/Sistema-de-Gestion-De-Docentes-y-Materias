@@ -20,6 +20,7 @@
 	      <th scope="col">Departamento</th>
 	      <th scope="col">Año</th>
 	      <th scope="col">Semestre</th>
+	      <th scope="col">Grupo</th>
 	      <th scope="col">Editar</th>
 	      <th scope="col">Eliminar</th>
 	    </tr>
@@ -29,7 +30,7 @@
 
 	    $conexion = new Conexion;
 		$con = $conexion->conexion(); 
-		$consulta = "SELECT docentemateria.id as id,personal.nombre as nombre,paterno,materno, materia.nombre as materia,departamento.nombre as departamento, anio,semestre FROM docentemateria join materia on docentemateria.materia = materia.id join puestodepartamento on docentemateria.puestodepartamento = puestodepartamento.id join personal on puestodepartamento.personal = personal.id join departamento on puestodepartamento.departamento = departamento.id";
+		$consulta = "SELECT docentemateria.id as id,personal.nombre as nombre,paterno,materno, materia.nombre as materia,departamento.nombre as departamento, anio,semestre,grupo FROM docentemateria join materia on docentemateria.materia = materia.id join puestodepartamento on docentemateria.puestodepartamento = puestodepartamento.id join personal on puestodepartamento.personal = personal.id join departamento on puestodepartamento.departamento = departamento.id";
 		$resultado = $con->query($consulta);
 		if(!$resultado) die ("Error al realizar la consulta");
 
@@ -50,6 +51,7 @@
 			      }else{
 			      	echo '<td>No asignado</td>';
 			      }
+			      echo '<td>'.$renglon["grupo"].'</td>';
 			      echo '<td>
 					<form method="POST" action="php/asignadas/asignadaEditar.php">
 						<input type="hidden" value="'.$renglon['id'].'" name="idedit" />

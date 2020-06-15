@@ -9,7 +9,9 @@ $con = $conexion->conexion();
 //INSERCION
 if(isset($_POST['nombre']) && isset($_POST['abreviatura'])){
 
-	$consulta = "insert into departamento values(null,'".$_POST['nombre']."','".$_POST['abreviatura']."')";
+	if(!existe($_POST['nombre'])){
+
+		$consulta = "insert into departamento values(null,'".$_POST['nombre']."','".$_POST['abreviatura']."')";
 
 	$resultado = $con->query($consulta);
 
@@ -18,6 +20,11 @@ if(isset($_POST['nombre']) && isset($_POST['abreviatura'])){
 		echo '<script>alert("¡No se ha podido registrar!")</script>';
 	}else{
 		echo '<script>alert("Se ha registrado correctamente!")</script>';
+		header("location: ../index.php");
+	}
+
+	}else{
+		echo "<script>alert('repetido')</script>";
 		header("location: ../index.php");
 	}
 
@@ -50,7 +57,9 @@ if(isset($_POST['nombree']) && isset($_POST['abreviaturae']) && isset($_POST['id
 		unset($_SESSION['idedit']);
 	}
 
-	$consulta = "UPDATE departamento SET nombre = '".$_POST['nombree']."',abreviatura = '".$_POST['abreviaturae']."' WHERE id = ".$_POST['ide'];
+	if(!existe($_POST['nombree'])){
+
+		$consulta = "UPDATE departamento SET nombre = '".$_POST['nombree']."',abreviatura = '".$_POST['abreviaturae']."' WHERE id = ".$_POST['ide'];
 
 	$resultado = $con->query($consulta);
 	$con->close();
@@ -58,6 +67,12 @@ if(isset($_POST['nombree']) && isset($_POST['abreviaturae']) && isset($_POST['id
 		echo '<script>alert("No se ha actualizado")</script>';
 	}else{
 		echo '<script>alert("Actualizado")</script>';
+		$_SESSION['contenido'] = "departamentosIndex";
+		header("location: ../index.php");
+	}
+
+	}else{
+		echo '<script>alert("repetido")</script>';
 		$_SESSION['contenido'] = "departamentosIndex";
 		header("location: ../index.php");
 	}
@@ -73,6 +88,17 @@ function estaVacio($departamento){
 	$existencia = $resultado->num_rows;
 	if($existencia>0)return false;
 	return true;
+}
+
+function existe($nombre){
+	$conexion = new Conexion;
+	$con = $conexion->conexion(); 
+	$consulta = "SELECT * FROM departamento WHERE nombre = '".$nombre."'";
+	$resultado = $con->query($consulta);
+	if(!$resultado) die ("Error al realizar la consulta");
+	$existencia = $resultado->num_rows;
+	if($existencia>0)return true;
+	return false;
 }
 
 ?>

@@ -17,6 +17,9 @@
 	      <th scope="col">Id</th>
 	      <th scope="col">Materia</th>
 	      <th scope="col">Unidad</th>
+	      <th scope="col">Grupo</th>
+	      <th scope="col">Año</th>
+	      <th scope="col">Semestre</th>
 	      <th scope="col">Fecha</th>
 	      <th scope="col">Ver</th>
 	      <th scope="col">Editar</th>
@@ -28,7 +31,7 @@
 
 	    $conexion = new Conexion;
 		$con = $conexion->conexion(); 
-		$consulta = "select c.id as id, m.nombre as materia, c.unidad as unidad, c.documento as documento, c.fecha as fecha from calificacion c join docentemateria dm on dm.id = c.docentemateria join materia m on m.id=dm.materia join puestodepartamento pd on dm.puestodepartamento=pd.id join personal p on p.id=pd.personal where p.id=".$_SESSION['id'];
+		$consulta = "select c.id as id, m.nombre as materia, c.unidad as unidad, c.documento as documento, c.fecha as fecha,grupo,anio,semestre from calificacion c join docentemateria dm on dm.id = c.docentemateria join materia m on m.id=dm.materia join puestodepartamento pd on dm.puestodepartamento=pd.id join personal p on p.id=pd.personal where p.id=".$_SESSION['id'];
 		$resultado = $con->query($consulta);
 		if(!$resultado) die ("No existen materias registradas");
 
@@ -40,7 +43,16 @@
 			      <th scope="row">'.$renglon["id"].'</th>
 			      <td>'.$renglon["materia"].'</td>
 			      <td>'.$renglon["unidad"].'</td>
-			      <td>'.$renglon["fecha"].'</td>
+			      <td>'.$renglon["grupo"].'</td>
+			      <td>'.$renglon["anio"].'</td>';
+
+			      if($renglon["semestre"] == 1){
+			      	echo '<td> Enero - Junio </td>';
+			      }else{
+			      	echo '<td> Agosto - Diciembre </td>';
+			      }
+
+			      echo '<td>'.$renglon["fecha"].'</td>
 			      <td>
 			      	<form method="POST" action="php/SesionesCalificaciones/sesionVisualizar.php">
 						<input type="hidden" value="'.$renglon["documento"].'" name="ruta" />

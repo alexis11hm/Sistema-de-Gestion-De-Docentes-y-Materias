@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-06-2020 a las 17:29:17
+-- Tiempo de generación: 15-06-2020 a las 19:34:16
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.4
 
@@ -30,9 +30,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `calificacion` (
   `id` int(11) NOT NULL,
   `unidad` int(1) NOT NULL,
-  `documento` varchar(30) NOT NULL,
-  `docentemateria` int(11) NOT NULL
+  `documento` varchar(100) NOT NULL,
+  `docentemateria` int(11) NOT NULL,
+  `fecha` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `calificacion`
+--
+
+INSERT INTO `calificacion` (`id`, `unidad`, `documento`, `docentemateria`, `fecha`) VALUES
+(2, 3, 'archivos/9008200535989100calificaciones_poo_2020.csv', 7, '2020-06-15');
 
 -- --------------------------------------------------------
 
@@ -65,15 +73,17 @@ CREATE TABLE `docentemateria` (
   `materia` int(11) NOT NULL,
   `puestodepartamento` int(11) NOT NULL,
   `anio` int(4) NOT NULL,
-  `semestre` int(1) NOT NULL
+  `semestre` int(1) NOT NULL,
+  `grupo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `docentemateria`
 --
 
-INSERT INTO `docentemateria` (`id`, `materia`, `puestodepartamento`, `anio`, `semestre`) VALUES
-(6, 5, 13, 2020, 1);
+INSERT INTO `docentemateria` (`id`, `materia`, `puestodepartamento`, `anio`, `semestre`, `grupo`) VALUES
+(6, 5, 13, 2020, 1, '8N'),
+(7, 3, 10, 2020, 2, '8N');
 
 -- --------------------------------------------------------
 
@@ -122,9 +132,9 @@ CREATE TABLE `personal` (
 
 INSERT INTO `personal` (`id`, `titulo`, `nombre`, `paterno`, `materno`, `sexo`, `rfc`, `curp`, `foto`, `correo`, `password`, `tipo`) VALUES
 (1, 'Ingeniero en Sistemas Computacionales', 'Alexis', 'Hernandez', 'Mondragon', 'Hombre', 'HEMA981206YU6', 'HETA981106HMDRL07', 'fotos/foto.jpg', 'alexis11hm@gmail.com', '12345678', 2),
-(2, 'Ingeniera En Sistemas Computacionales', 'Dulce Caroll', 'Peñaloza ', 'Tello', 'Hombre', 'PETC131292TR3', 'PETEDC123456HMNRJL', 'fotos/foto4.png', 'caroll@gmail.com', '12345678', 2),
+(2, 'Ingeniera En Sistemas Computacionales', 'Dulce Caroll', 'Peñaloza ', 'Tello', 'Mujer', 'PETC131292TR3', 'PETEDC123456HMNRJL', 'fotos/foto4.png', 'caroll@gmail.com', '12345678', 1),
 (3, 'Ingeniero En Sistemas Computacionales', 'Erik Salvador', 'Padilla', 'Gonzalez', 'Hombre', 'PAGS123456HM2', 'PAGS123456HMNRLP07', 'fotos/foto3.jpg', 'erikgonzna@gmail.com', '12345678', 2),
-(5, 'Ing. Sistemas Computacionales', 'Jose', 'Cicero', 'Barraza', 'Hombre', '312321', 'sfadsfasfs', 'fotos/images.jpg', 'pa@pa.com', '12345678', 2);
+(5, 'Ing. Sistemas Computacionales', 'Jose', 'Cicero', 'Barraza', 'Hombre', '312321', 'sfadsfasfs', 'fotos/images.jpg', 'pa@pa.com', '12345678', 1);
 
 -- --------------------------------------------------------
 
@@ -144,8 +154,7 @@ CREATE TABLE `puesto` (
 INSERT INTO `puesto` (`id`, `nombre`) VALUES
 (1, 'Docente'),
 (2, 'Jefe'),
-(4, 'Auxiliar'),
-(9, 'Intendente');
+(4, 'Auxiliar');
 
 -- --------------------------------------------------------
 
@@ -224,25 +233,25 @@ ALTER TABLE `puestodepartamento`
 -- AUTO_INCREMENT de la tabla `calificacion`
 --
 ALTER TABLE `calificacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `docentemateria`
 --
 ALTER TABLE `docentemateria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `personal`
@@ -254,7 +263,7 @@ ALTER TABLE `personal`
 -- AUTO_INCREMENT de la tabla `puesto`
 --
 ALTER TABLE `puesto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `puestodepartamento`
